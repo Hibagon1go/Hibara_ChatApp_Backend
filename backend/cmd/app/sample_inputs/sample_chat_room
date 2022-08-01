@@ -1,0 +1,24 @@
+POST https://uttc-chat-backend-2hm5jnzxea-an.a.run.app/api/chatroom/build
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NTgzMDc0MDEsInVzZXJfaWQiOiI2Z0tEb1c5blRveW1jdGY4OW5zZ3hBIn0.cCeq_va95gfIfHVzpYfdGAd4rfzEJs0dliVzU7A8eIk
+
+{
+  "room_name": "random"
+}
+
+POST https://uttc-chat-backend-2hm5jnzxea-an.a.run.app/api/chatroom/join
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NTg0NTgwOTgsInVzZXJfaWQiOiI2Z0tEb1c5blRveW1jdGY4OW5zZ3hBIn0.lSwMi8sdHxP5AMJhtQk5h6qdV1FApYz7khaLorTG8bQ
+
+{
+  "chat_room_id": "iF4Y02iRQY211dt4c7UDUQ"
+}
+
+GET https://uttc-chat-backend-2hm5jnzxea-an.a.run.app/api/chatroom/all
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NTgzMDc0MDEsInVzZXJfaWQiOiI2Z0tEb1c5blRveW1jdGY4OW5zZ3hBIn0.cCeq_va95gfIfHVzpYfdGAd4rfzEJs0dliVzU7A8eIk
+
+GET https://uttc-chat-backend-2hm5jnzxea-an.a.run.app/api/chatroom/joining
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NTgzMDc0MDEsInVzZXJfaWQiOiI2Z0tEb1c5blRveW1jdGY4OW5zZ3hBIn0.cCeq_va95gfIfHVzpYfdGAd4rfzEJs0dliVzU7A8eIk
+

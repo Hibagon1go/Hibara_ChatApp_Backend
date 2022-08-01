@@ -1,0 +1,7 @@
+POST https://uttc-chat-backend-2hm5jnzxea-an.a.run.app/api/submsg
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NTgzMDc0MDEsInVzZXJfaWQiOiI2Z0tEb1c5blRveW1jdGY4OW5zZ3hBIn0.cCeq_va95gfIfHVzpYfdGAd4rfzEJs0dliVzU7A8eIk
+
+{
+  "chat_room_id": "iF4Y02iRQY211dt4c7UDUQ"
+}

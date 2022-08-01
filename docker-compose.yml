@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:8.0
+    platform: linux/x86_64
+    volumes:
+      - db-store:/var/lib/mysql
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_DATABASE=mysqldb
+      - MYSQL_USER=mysqluser
+      - MYSQL_PASSWORD=Password
+      - MYSQL_ROOT_PASSWORD=Password
+      - TZ=Asia/Tokyo
+
+  backend:
+    build:
+      context: "./backend"
+      target: base
+    volumes:
+      - type: bind
+        source: ./backend
+        target: /app/go/base
+    ports:
+      - 8080:8080
+    command: "air -c .air.toml"
+    depends_on:
+      - db
+
+  frontend:
+    build:
+      context: ./frontend
+    volumes:
+      - type: bind
+        source: ./frontend/chatapp
+        target: /app
+    ports:
+      - "3000:3000"
+    environment:
+      - WATCHPACK_POLLING=true
+    command: sh -c "npm run dev"
+
+volumes:
+  db-store:

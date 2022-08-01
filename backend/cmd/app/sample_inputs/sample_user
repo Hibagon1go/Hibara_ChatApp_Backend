@@ -1,0 +1,17 @@
+POST https://uttc-chat-backend-2hm5jnzxea-an.a.run.app/signup
+Content-Type: application/json
+
+{
+  "email": "hibarayoichiro871@gmail.com",
+  "password": "Yotto0416",
+  "name": "ヨット"
+}
+
+###
+POST https://uttc-chat-backend-2hm5jnzxea-an.a.run.app/login
+Content-Type: application/json
+
+{
+  "email": "hibarayoichiro871@gmail.com",
+  "password": "Yotto0416"
+}
