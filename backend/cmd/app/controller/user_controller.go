@@ -1,11 +1,12 @@
 package controller
 
 import (
+	"net/http"
+
 	"github.com/Hibagon1go/ChatApp_Go_React/cmd/app/auth"
 	"github.com/Hibagon1go/ChatApp_Go_React/cmd/app/model"
 	"github.com/Hibagon1go/ChatApp_Go_React/cmd/app/utils"
 	"github.com/labstack/echo/v4"
-	"net/http"
 )
 
 func Signup(c echo.Context) error {
@@ -31,7 +32,10 @@ func Signup(c echo.Context) error {
 		Password: encryptPw,
 		Name:     name,
 	}
-	newUser.Create()
+
+	if !newUser.AlreadyExists(email) {
+		newUser.Create()
+	}
 
 	token := auth.GenerateJWT(UserID)
 
@@ -52,7 +56,7 @@ func Login(c echo.Context) error {
 
 	err := auth.CompareHashAndPassword(loginUser.Password, password)
 	if err != nil {
-		return c.JSON(http.StatusOK, err)
+		return c.JSON(http.StatusUnauthorized, err)
 	}
 
 	token := auth.GenerateJWT(loginUser.ID)
