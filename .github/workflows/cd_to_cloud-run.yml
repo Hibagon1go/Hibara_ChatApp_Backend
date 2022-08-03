@@ -1,4 +1,5 @@
 name: cd_to_cloudrun
+  working-directory: ./backend
 
 on:
   push:
