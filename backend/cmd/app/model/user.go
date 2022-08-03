@@ -42,3 +42,11 @@ func (p *User) DeleteById(id string) (tx *gorm.DB) {
 func (p *User) FirstByEmail(email string) (tx *gorm.DB) {
 	return DB.Where("email = ?", email).First(&p)
 }
+
+func (p *User) AlreadyExists(email string) bool {
+	if err := DB.Where("email = ?", email).First(&p).Error; err != nil {
+		return false
+	} else {
+		return true
+	}
+}

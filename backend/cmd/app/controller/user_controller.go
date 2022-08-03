@@ -1,11 +1,12 @@
 package controller
 
 import (
+	"net/http"
+
 	"github.com/Hibagon1go/ChatApp_Go_React/cmd/app/auth"
 	"github.com/Hibagon1go/ChatApp_Go_React/cmd/app/model"
 	"github.com/Hibagon1go/ChatApp_Go_React/cmd/app/utils"
 	"github.com/labstack/echo/v4"
-	"net/http"
 )
 
 func Signup(c echo.Context) error {
@@ -13,7 +14,7 @@ func Signup(c echo.Context) error {
 
 	user := new(model.User)
 	if err := c.Bind(user); err != nil {
-		return c.JSON(http.StatusInternalServerError, err)
+		return c.JSON(http.StatusInternalServerError, echo.Map{"message": "何らかのエラーが発生しました"})
 	}
 
 	email := user.Email
@@ -22,7 +23,7 @@ func Signup(c echo.Context) error {
 
 	encryptPw, err := auth.PasswordEncrypt(password)
 	if err != nil {
-		return c.JSON(http.StatusInternalServerError, err)
+		return c.JSON(http.StatusInternalServerError, echo.Map{"message": "何らかのエラーが発生しました"})
 	}
 
 	newUser := model.User{
@@ -31,7 +32,11 @@ func Signup(c echo.Context) error {
 		Password: encryptPw,
 		Name:     name,
 	}
-	newUser.Create()
+
+	if !newUser.AlreadyExists(email) {
+		newUser.Create()
+		return c.JSON(http.StatusConflict, echo.Map{"message": "このemailは使用できません"})
+	}
 
 	token := auth.GenerateJWT(UserID)
 
@@ -52,7 +57,7 @@ func Login(c echo.Context) error {
 
 	err := auth.CompareHashAndPassword(loginUser.Password, password)
 	if err != nil {
-		return c.JSON(http.StatusOK, err)
+		return c.JSON(http.StatusUnauthorized, echo.Map{"message": "emailまたはパスワードが違います"})
 	}
 
 	token := auth.GenerateJWT(loginUser.ID)

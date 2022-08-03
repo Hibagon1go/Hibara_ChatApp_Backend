@@ -1,6 +1,7 @@
 package auth
 
 import (
+	"fmt"
 	"os"
 	"time"
 
@@ -32,5 +33,7 @@ func UserAuth(c echo.Context) string {
 	user := c.Get("user").(*jwt.Token)
 	claims := user.Claims.(jwt.MapClaims)
 	userID := claims["user_id"].(string)
+	fmt.Print(claims)
+	fmt.Print(userID)
 	return userID
 }
