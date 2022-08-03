@@ -13,12 +13,14 @@ const Login: NextPage = () => {
   const LOGIN_URL = `${backend.BACKEND_BASE_URL}/login`;
   const ROOM_LIST_PATH = "/room_list";
 
+  /**
   useEffect(() => {
     const isLogedIn = localStorage.getItem("token") !== null;
     if (isLogedIn) {
       router.push(ROOM_LIST_PATH);
     }
   }, []);
+   */
 
   const loginHandler = () => {
     axios
