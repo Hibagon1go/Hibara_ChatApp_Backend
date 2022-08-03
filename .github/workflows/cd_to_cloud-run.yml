@@ -1,5 +1,4 @@
 name: cd_to_cloudrun
-  working-directory: ./backend
 
 on:
   push:
@@ -13,6 +12,9 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v2
