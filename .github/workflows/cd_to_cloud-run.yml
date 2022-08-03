@@ -1,4 +1,4 @@
-name: cd_to-cloudrun
+name: cd_to_cloudrun
 
 on:
   push:
