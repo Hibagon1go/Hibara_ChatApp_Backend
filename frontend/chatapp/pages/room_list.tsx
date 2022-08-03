@@ -37,15 +37,15 @@ const RoomList: NextPage = () => {
 
   const [joiningRooms, setJoiningRooms] = useState<JoiningRoom[]>([
     {
-      chat_room_id: "",
-      name: "",
+      chat_room_id: "wowow",
+      name: "wowowowow",
     },
   ]);
 
   const [allRooms, setAllRooms] = useState<ChatRoom[]>([
     {
-      id: "",
-      name: "",
+      id: "dfasd",
+      name: "fsadfas",
       created_at: "",
       updated_at: "",
     },
@@ -154,70 +154,77 @@ const RoomList: NextPage = () => {
           })}
         </div>
 
-        <div className="grid grid-cols-12 gap-4">
-          <div className="col-start-6; col-end-7">
+        <div className="grid grid-cols-2 gap-4">
+          <div>
             <ColorfulButton
               onClick={openBuildRoomModal}
               buttonText="ルームを作成する"
             />
-            <Modal
-              isOpen={buildRoomModalIsOpen}
-              onRequestClose={buildRoomCloseModal}
-              style={customStyles}
-            >
-              <div className="flex flex-row; grid grid-cols-4 gap-4">
-                <input
-                  autoFocus={true}
-                  type="text"
-                  placeholder="ルーム名"
-                  value={newRoomName}
-                  onChange={(event) => setNewRoomName(event.target.value)}
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline col-start-1 col-end-4"
-                />
-                <ColorfulButton onClick={buildChatRoom} buttonText="作成する" />
-              </div>
-              <button
-                onClick={buildRoomCloseModal}
-                className="rounded bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded align-content: center;"
-              >
-                閉じる
-              </button>
-            </Modal>
           </div>
-
-          <div className="col-start-7 col-end-8">
+          <div>
             <ColorfulButton
               onClick={openJoinRoomModal}
               buttonText="ルームを探す"
             />
-            <Modal
-              isOpen={joinRoomModalIsOpen}
-              onRequestClose={joinRoomCloseModal}
-              onAfterOpen={fetchAllRooms}
-              style={customStyles}
-            >
-              {allRooms.map((room, key) => {
-                return (
-                  <div key={key}>
-                    {/** 参加ボタンのみ表示 */}
-                    <RoomCard
-                      room={room}
-                      joinNewRoom={joinNewRoom}
-                      isNewRoom={true}
-                      ROOM_PATH={ROOM_PATH}
-                    />
-                  </div>
-                );
-              })}
-              <button
-                onClick={joinRoomCloseModal}
-                className="rounded bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
-              >
-                閉じる
-              </button>
-            </Modal>
           </div>
         </div>
+
+        {/** ルーム作成モーダル */}
+        <Modal
+          isOpen={buildRoomModalIsOpen}
+          onRequestClose={buildRoomCloseModal}
+          style={customStyles}
+        >
+          <div className="flex flex-row; grid grid-cols-4 gap-4">
+            <input
+              autoFocus={true}
+              type="text"
+              placeholder="ルーム名"
+              value={newRoomName}
+              onChange={(event) => setNewRoomName(event.target.value)}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline col-start-1 col-end-4"
+            />
+            <ColorfulButton onClick={buildChatRoom} buttonText="作成する" />
+          </div>
+          <div className="text-right p-8">
+            <button
+              onClick={buildRoomCloseModal}
+              className="rounded bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded align-content: center;"
+            >
+              閉じる
+            </button>
+          </div>
+        </Modal>
+
+        {/** ルーム探すモーダル */}
+        <Modal
+          isOpen={joinRoomModalIsOpen}
+          onRequestClose={joinRoomCloseModal}
+          onAfterOpen={fetchAllRooms}
+          style={customStyles}
+        >
+          {allRooms.map((room, key) => {
+            return (
+              <div key={key}>
+                {/** 参加ボタンのみ表示 */}
+                <RoomCard
+                  room={room}
+                  joinNewRoom={joinNewRoom}
+                  isNewRoom={true}
+                  ROOM_PATH={ROOM_PATH}
+                />
+              </div>
+            );
+          })}
+          <div className="text-right">
+            <button
+              onClick={joinRoomCloseModal}
+              className="rounded bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
+            >
+              閉じる!
+            </button>
+          </div>
+        </Modal>
       </main>
     </div>
   );

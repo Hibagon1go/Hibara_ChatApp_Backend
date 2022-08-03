@@ -1,20 +1,6 @@
 version: '3'
 
 services:
-  db:
-    image: mysql:8.0
-    platform: linux/x86_64
-    volumes:
-      - db-store:/var/lib/mysql
-    ports:
-      - 3306:3306
-    environment:
-      - MYSQL_DATABASE=mysqldb
-      - MYSQL_USER=mysqluser
-      - MYSQL_PASSWORD=Password
-      - MYSQL_ROOT_PASSWORD=Password
-      - TZ=Asia/Tokyo
-
   backend:
     build:
       context: "./backend"
@@ -26,8 +12,6 @@ services:
     ports:
       - 8080:8080
     command: "air -c .air.toml"
-    depends_on:
-      - db
 
   frontend:
     build:
@@ -41,6 +25,3 @@ services:
     environment:
       - WATCHPACK_POLLING=true
     command: sh -c "npm run dev"
-
-volumes:
-  db-store:
