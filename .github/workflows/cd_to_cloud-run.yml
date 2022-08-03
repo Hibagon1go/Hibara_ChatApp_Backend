@@ -1,4 +1,4 @@
-name: docker_build
+name: cd_to-cloudrun
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
 
 env:
   GCP_REGION: ${{ secrets.GCP_REGION_PRD }}
-  IMAGE: asia.gcr.io/${{ secrets.GCP_PROJECT_ID_PRD }}/hoge:${{ github.sha }}
+  IMAGE: asia.gcr.io/${{ secrets.GCP_PROJECT_ID_PRD }}/uttc-chat-backend:latest
 
 jobs:
   build:
@@ -29,6 +29,6 @@ jobs:
         id: deploy
         uses: google-github-actions/deploy-cloudrun@v0
         with:
-          service: hoge
+          service: uttc-chat-backend
           image: ${{ env.IMAGE }}
           region: ${{ env.GCP_REGION }}
