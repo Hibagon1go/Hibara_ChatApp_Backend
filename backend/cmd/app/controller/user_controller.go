@@ -33,8 +33,12 @@ func Signup(c echo.Context) error {
 		Name:     name,
 	}
 
-	if !newUser.AlreadyExists(email) {
-		return c.JSON(http.StatusConflict, echo.Map{"message": "このemailは使用できません"})
+	if !newUser.EmailAlreadyExists(email) {
+		return c.JSON(http.StatusConflict, echo.Map{"message": "このメールアドレスは使用できません"})
+	}
+
+	if !newUser.NameAlreadyExists(name) {
+		return c.JSON(http.StatusConflict, echo.Map{"message": "このユーザ名は使用できません"})
 	}
 
 	newUser.Create()
@@ -58,7 +62,7 @@ func Login(c echo.Context) error {
 
 	err := auth.CompareHashAndPassword(loginUser.Password, password)
 	if err != nil {
-		return c.JSON(http.StatusUnauthorized, echo.Map{"message": "emailまたはパスワードが違います"})
+		return c.JSON(http.StatusUnauthorized, echo.Map{"message": "メールアドレスまたはパスワードが違います"})
 	}
 
 	token := auth.GenerateJWT(loginUser.ID)
