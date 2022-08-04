@@ -1,11 +1,12 @@
 package controller
 
 import (
+	"net/http"
+
 	"github.com/Hibagon1go/ChatApp_Go_React/cmd/app/auth"
 	"github.com/Hibagon1go/ChatApp_Go_React/cmd/app/model"
 	"github.com/Hibagon1go/ChatApp_Go_React/cmd/app/utils"
 	"github.com/labstack/echo/v4"
-	"net/http"
 )
 
 type buildChatRoomReq struct {
@@ -68,10 +69,11 @@ func JoinNewRoom(c echo.Context) error {
 		ChatRoomID: joinNewRoomID,
 	}
 
-	if !userChatRoom.HasAlreadyJoined(userID, joinNewRoomID) {
-		userChatRoom.Create()
+	if userChatRoom.HasAlreadyJoined(userID, joinNewRoomID) {
+		return c.JSON(http.StatusConflict, echo.Map{"message": "既にこのルームには参加しています"})
 	}
 
+	userChatRoom.Create()
 	return c.JSON(http.StatusOK, echo.Map{"message": "ルームの参加に成功しました"})
 }
 
