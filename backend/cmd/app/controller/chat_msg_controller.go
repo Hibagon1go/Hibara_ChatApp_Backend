@@ -1,11 +1,12 @@
 package controller
 
 import (
+	"net/http"
+
 	"github.com/Hibagon1go/ChatApp_Go_React/cmd/app/auth"
 	"github.com/Hibagon1go/ChatApp_Go_React/cmd/app/model"
 	"github.com/Hibagon1go/ChatApp_Go_React/cmd/app/redis"
 	"github.com/Hibagon1go/ChatApp_Go_React/cmd/app/utils"
-	"net/http"
 
 	"github.com/labstack/echo/v4"
 )
