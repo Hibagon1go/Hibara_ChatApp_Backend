@@ -1,8 +1,9 @@
 package model
 
 import (
-	"gorm.io/gorm"
 	"time"
+
+	"gorm.io/gorm"
 )
 
 type ChatMsg struct {
@@ -41,5 +42,5 @@ func (p *ChatMsg) FirstById(msgID string) (tx *gorm.DB) {
 }
 
 func (p *SlimChatMsgs) FetchRoomMsgs(chatRoomID string) (tx *gorm.DB) {
-	return DB.Table("chat_msgs").Select("chat_msgs.id, chat_msgs.text, users.name, chat_msgs.created_at, chat_msgs.updated_at").Joins("left join users as users ON users.id = chat_msgs.sender_id").Where("chat_room_id = ?", chatRoomID).Find(&p)
+	return DB.Table("chat_msgs").Select("chat_msgs.id, chat_msgs.text, users.name, chat_msgs.created_at, chat_msgs.updated_at").Joins("left join users as users ON users.id = chat_msgs.sender_id").Where("chat_room_id = ?", chatRoomID).Order("created_at asc").Find(&p)
 }
