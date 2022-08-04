@@ -1,1 +1,0 @@
-export const BACKEND_BASE_URL = "https://uttc-chat-backend-2hm5jnzxea-an.a.run.app";
