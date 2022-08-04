@@ -34,9 +34,10 @@ func Signup(c echo.Context) error {
 	}
 
 	if !newUser.AlreadyExists(email) {
-		newUser.Create()
 		return c.JSON(http.StatusConflict, echo.Map{"message": "このemailは使用できません"})
 	}
+
+	newUser.Create()
 
 	token := auth.GenerateJWT(UserID)
 
