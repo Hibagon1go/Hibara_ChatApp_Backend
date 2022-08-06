@@ -47,7 +47,10 @@ func BuildChatRoom(c echo.Context) error {
 		ChatRoomID: chatRoomID,
 	}
 
-	chatRoom.Create()
+	if err := chatRoom.Create().Error; err != nil {
+		return c.JSON(http.StatusConflict, echo.Map{"message": "このチャンネル名は既に使われています"})
+	}
+
 	userChatRoom.Create()
 
 	// ルーム作成直後に入れるように、ルームIDを返す
@@ -69,11 +72,10 @@ func JoinNewRoom(c echo.Context) error {
 		ChatRoomID: joinNewRoomID,
 	}
 
-	if userChatRoom.HasAlreadyJoined(userID, joinNewRoomID) {
-		return c.JSON(http.StatusConflict, echo.Map{"message": "既にこのルームには参加しています"})
+	if err := userChatRoom.Create().Error; err != nil {
+		return c.JSON(http.StatusBadRequest, echo.Map{"message": "既にこのチャンネルには参加しています"})
 	}
 
-	userChatRoom.Create()
 	return c.JSON(http.StatusOK, echo.Map{"message": "ルームの参加に成功しました"})
 }
 
