@@ -17,7 +17,7 @@ func Init() {
 	e := echo.New()
 
 	corsConfig := middleware.CORSConfig{
-		AllowOrigins: []string{"https://chat-app-go-react-git-chatroom-hibagon1go.vercel.app", "http://localhost:3000"},
+		AllowOrigins: []string{"https://chat-app-go-react-git-chatroom-hibagon1go.vercel.app", "https://uttc-chat-app.hbyotto.tk", "http://localhost:3000"},
 		AllowMethods: []string{http.MethodGet, http.MethodPut, http.MethodPost, http.MethodDelete},
 	}
 	e.Use(middleware.CORSWithConfig(corsConfig))
