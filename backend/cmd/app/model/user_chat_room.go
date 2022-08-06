@@ -7,8 +7,8 @@ import (
 )
 
 type UserChatRoom struct {
-	UserID     string    `json:"user_id" gorm:"not null"`
-	ChatRoomID string    `json:"chat_room_id" gorm:"not null"`
+	UserID     string    `json:"user_id" gorm:"not null; index:,unique,composite:userchatroom"`
+	ChatRoomID string    `json:"chat_room_id" gorm:"not null; index:,unique,composite:userchatroom"`
 	CreatedAt  time.Time `json:"created_at"`
 	UpdatedAt  time.Time `json:"updated_at"`
 }
@@ -22,14 +22,6 @@ type JoiningRooms []JoiningRoom
 
 func (p *UserChatRoom) Create() (tx *gorm.DB) {
 	return DB.Create(&p)
-}
-
-func (p *UserChatRoom) HasAlreadyJoined(userID string, chatRoomID string) bool {
-	if err := DB.Where("user_id = ? and chat_room_id = ?", userID, chatRoomID).First(&p).Error; err != nil {
-		return false
-	} else {
-		return true
-	}
 }
 
 // FetchJoiningRooms :userIDのユーザが参加しているチャットルーム一覧をとってくる
