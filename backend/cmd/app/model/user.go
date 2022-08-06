@@ -23,7 +23,7 @@ func (p *User) FirstByEmail(email string) (tx *gorm.DB) {
 	return DB.Where("email = ?", email).First(&p)
 }
 
-func (p *User) EmailAlreadyExists(email string) bool {
+/*func (p *User) EmailAlreadyExists(email string) bool {
 	if err := DB.Where("email = ?", email).First(&p).Error; err != nil {
 		return false
 	} else {
@@ -37,4 +37,4 @@ func (p *User) NameAlreadyExists(name string) bool {
 	} else {
 		return true
 	}
-}
+}*/
