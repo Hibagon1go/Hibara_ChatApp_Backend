@@ -7,7 +7,7 @@ on:
 
 env:
   GCP_REGION: ${{ secrets.GCP_REGION_PRD }}
-  IMAGE: asia.gcr.io/${{ secrets.GCP_PROJECT_ID_PRD }}/uttc-chat-backend:latest
+  IMAGE: asia.gcr.io/${{ secrets.GCP_PROJECT_ID_PRD }}/uttc-chat-backend:${{ github.sha }}
 
 jobs:
   build:
